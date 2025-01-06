@@ -30,17 +30,16 @@ public class DocumentationTextArea extends StyledTextArea<String, String> {
     public DocumentationTextArea() {
         super("", TextFlow::setStyle,
                 DOC_STYLE, TextExt::setStyle,
-                new SimpleEditableStyledDocument<>("", DOC_STYLE),
-                true);
+                new SimpleEditableStyledDocument<>("", DOC_STYLE) );
         this.setWrapText(true);
         this.setBackground(Background.EMPTY);
         this.setUseInitialStyleForInsertion(true);
     }
 
-    @Override
-    public void requestFocus() {
-        // Prevent this from getting focus.
-    }
+//    @Override
+//    public void requestFocus() {
+//        // Prevent this from getting focus.
+//    }
 
     public void setDocumentation(String fullDocumentation) {
         this.clear();

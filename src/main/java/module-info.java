@@ -17,6 +17,8 @@ module cz.hudecekpetr.snowride {
     requires kotlin.stdlib;
     requires org.fxmisc.undo;
     requires wellbehavedfx;
+    requires javafx.graphics;
+    requires reactfx;
     exports cz.hudecekpetr.snowride;
     opens cz.hudecekpetr.snowride.settings;
     opens org.robotframework.jaxb to jakarta.xml.bind;

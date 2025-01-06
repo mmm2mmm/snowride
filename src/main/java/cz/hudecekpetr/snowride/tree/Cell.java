@@ -19,7 +19,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.image.Image;
 import org.apache.commons.lang3.StringUtils;
-import org.reactfx.collection.LiveArrayList;
+import com.sun.javafx.collections.ObservableListWrapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,8 +88,7 @@ public class Cell implements IHasQuickDocumentation {
     public boolean isLineNumberCell;
     public BodyItemStatusValue status;
     
-    private final ListProperty<String> cssStyleClassesProperty = new SimpleListProperty<>(  new LiveArrayList<>());
-    
+	private final ListProperty<String> cssStyleClassesProperty = new SimpleListProperty<>(new ObservableListWrapper( new ArrayList<>()));
     public IceCell iceCell;
     private CellSemantics semantics;
     private ChangeListener<List<String>> recentChangeListener;
@@ -213,7 +212,8 @@ public class Cell implements IHasQuickDocumentation {
                     break;
             }
         }
-		cssStyleClassesProperty.setValue(new LiveArrayList(styleClasses));
+        
+		cssStyleClassesProperty.setValue(new ObservableListWrapper(styleClasses));
     }
 
     public Stream<? extends IAutocompleteOption> getCompletionOptions(SnowTableKind snowTableKind, QualifiedKeyword whatWrittenSoFar) {

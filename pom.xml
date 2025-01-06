@@ -23,6 +23,7 @@
 
         <kotlin.version>1.8.10</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <controlsfx.version>11.1.2</controlsfx.version>
         <jakarta.xml.bind.api.version>4.0.0</jakarta.xml.bind.api.version>
@@ -132,6 +133,14 @@
                 <artifactId>javafx-web</artifactId>
                 <version>${javafx.version}</version>
             </dependency>
+            
+            <!-- https://mvnrepository.com/artifact/org.reactfx/reactfx -->
+			<dependency>
+			    <groupId>org.reactfx</groupId>
+			    <artifactId>reactfx</artifactId>
+			    <version>2.0-M5</version>
+			</dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -206,6 +215,10 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
         </dependency>
+		<dependency>
+		    <groupId>org.reactfx</groupId>
+		    <artifactId>reactfx</artifactId>
+	    </dependency>
     </dependencies>
 
     <build>
@@ -262,7 +275,7 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
-                            <sourceDirs>
+                            <sourceDirs>                                
                                 <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
                                 <sourceDir>${project.basedir}/src/main/java</sourceDir>
                             </sourceDirs>
@@ -314,6 +327,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <release>17</release>
+					<encoding>UTF-8</encoding>
                     <compilerArgs>
                         <arg>--add-exports</arg>
                         <arg>javafx.base/com.sun.javafx.event=cz.hudecekpetr.snowride</arg>
@@ -323,10 +337,7 @@
                         <arg>javafx.graphics/com.sun.javafx.util=cz.hudecekpetr.snowride</arg>
                         <arg>--add-exports</arg>
                         <arg>javafx.graphics/com.sun.javafx.stage=cz.hudecekpetr.snowride</arg>
-			<arg>--add-reads</arg>
-                        <arg>cz.hudecekpetr.snowride=ALL-UNNAMED</arg>
                     </compilerArgs>
-		    <encoding>UTF-8</encoding>
                 </configuration>
                 <executions>
                     <!-- Replacing default-compile as it is treated specially by maven -->
@@ -925,5 +936,60 @@
                 </plugins>
             </build>
         </profile>-->
+        
+        <profile>
+	        <id>eclipse</id>
+	        <build>
+	            <plugins>
+	                <plugin>
+	                    <groupId>org.jetbrains.kotlin</groupId>
+	                    <artifactId>kotlin-maven-plugin</artifactId>
+	                    <version>${kotlin.version}</version>
+	                    <executions>
+	                        <execution>
+	                            <id>compile</id>
+	                            <goals>
+	                                <goal>compile</goal>
+	                            </goals>
+	                            <configuration>
+	                                <outputDirectory>${project.build.directory}/kotlin-classes</outputDirectory>
+	                                <sourceDirs>
+	                                    <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+	                                    <sourceDir>${project.basedir}/src/main/java</sourceDir>
+	                                </sourceDirs>
+	                            </configuration>
+	                        </execution>
+	                        <execution>
+	                            <id>test-compile</id>
+	                            <goals>
+	                                <goal>test-compile</goal>
+	                            </goals>
+	                            <configuration>
+	                                <outputDirectory>${project.build.directory}/kotlin-test-classes</outputDirectory>
+	                                <sourceDirs>
+	                                    <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+	                                    <sourceDir>${project.basedir}/src/test/java</sourceDir>
+	                                </sourceDirs>
+	                            </configuration>
+	                        </execution>
+	                    </executions>
+	                </plugin>
+	                <plugin>
+	                    <groupId>org.apache.maven.plugins</groupId>
+	                    <artifactId>maven-compiler-plugin</artifactId>
+	                    <version>3.8.1</version>
+	                    <configuration>
+	                        <source>1.8</source>
+	                        <target>1.8</target>
+	                        <compilerArgs>
+	                            <arg>-classpath</arg>
+	                            <arg>${project.build.directory}/kotlin-classes</arg>
+	                        </compilerArgs>
+	                    </configuration>
+	                </plugin>
+	            </plugins>
+	        </build>
+	    </profile>
+        
     </profiles>
 </project>
