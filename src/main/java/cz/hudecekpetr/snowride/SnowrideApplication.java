@@ -37,7 +37,7 @@ public class SnowrideApplication extends Application {
     }
 
     public void start(Stage primaryStage) {
-        SnowConstants.INSTANCE.setPrimaryStage(primaryStage);
+        SnowConstants.INSTANCE.primaryStage =primaryStage ;
         MainForm mainForm = new MainForm(primaryStage);
         mainForm.show();
         try {

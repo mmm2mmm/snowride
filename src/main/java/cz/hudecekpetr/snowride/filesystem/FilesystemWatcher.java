@@ -47,7 +47,7 @@ public class FilesystemWatcher {
             return true;
         }
 
-        return FilesystemWatcherUtils.INSTANCE.shouldIgnoreFilesystemChangesToFile(filename, kind);
+        return FilesystemWatcherUtils.shouldIgnoreFilesystemChangesToFile(filename, kind);
     }
 
     @SuppressWarnings("unchecked")
@@ -61,7 +61,7 @@ public class FilesystemWatcher {
                     while (true) {
                         WatchKey key;
                         key = watchService.take();
-                        FilesystemWatcherUtils.INSTANCE.waitToReceiveAllEvents(key.pollEvents(), (Path) key.watchable(), this);
+                        FilesystemWatcherUtils.waitToReceiveAllEvents(key.pollEvents(), (Path) key.watchable(), this);
                         key.reset();
                     }
                 } catch (InterruptedException e) {

@@ -222,13 +222,12 @@ public class MainForm {
             }
             if (event.getCode() == KeyCode.F && event.isShortcutDown() && event.isShiftDown()) {
                 if (getTabs().getSelectionModel().getSelectedItem() == tabTextEdit) {
-                    String selectedText = SnowCodeAreaProvider.INSTANCE.getCodeArea().getSelectedText();
-                    if (StringUtils.isNotBlank(selectedText)) {
+                    String selectedText = SnowCodeAreaProvider.INSTANCE.codeArea.getSelectedText();
                         FullTextSearchScene.INSTANCE.setSearchPhrase(selectedText);
+                    } else {
+                    	FullTextSearchScene.INSTANCE.show();
+                		event.consume();
                     }
-                }
-                FullTextSearchScene.INSTANCE.show();
-                event.consume();
             } else if (event.getCode() == KeyCode.F && event.isShortcutDown() && getTabs().getSelectionModel().getSelectedItem() == tabTextEdit) {
                 SnowCodeAreaSearchBox.INSTANCE.requestFocus();
                 event.consume();

@@ -128,7 +128,7 @@ public class TextEditTab {
                 }
             }
             if (!manuallySelected) {
-                HighElement currentlyEditedScenario = codeAreaProvider.getCodeArea().getCurrentlyEditedScenario();
+                HighElement currentlyEditedScenario = codeAreaProvider.codeArea.getCurrentlyEditedScenario();
                 if (currentlyEditedScenario == lastLoaded) {
                     mainForm.gridTab.loadElement(lastLoaded);
                 } else {
@@ -170,7 +170,7 @@ public class TextEditTab {
                 scrollPane.getContent().moveCaretToCurrentlyEditedScenario(null);
             }
         } else {
-            scrollPane = codeAreaProvider.getNonEditableCodeAreaPane();
+            scrollPane = codeAreaProvider.nonEditableCodeAreaPane;
         }
 
         if (editorPane.getChildren().size() > 1) {
